@@ -55,6 +55,8 @@ pause_state = False
 
 time_diff = None
 
+show_bounds = False
+
 print(f'Score: {score}')
 
 
@@ -284,7 +286,7 @@ def animate():
     glutPostRedisplay()
 
 def KeyboardListen(key, x, y):
-    global rocket, bullets, game_over_state, pause_state
+    global rocket, bullets, game_over_state, pause_state, show_bounds
 
     # print(key)
 
@@ -308,6 +310,12 @@ def KeyboardListen(key, x, y):
         if key==b' ':
             bullet = Pivot(rocket.x, rocket.y+45, 5)
             bullets.append(bullet)
+
+        if key==b'\r':
+            if show_bounds == True:
+                show_bounds = False
+            else:
+                show_bounds = True
 
     glutPostRedisplay()
 
@@ -368,7 +376,7 @@ def mouseListener(button, state, x, y):
     glutPostRedisplay()
 
 def showScreen():
-    global R, G, B, rocket, bullets, bubbles, first_time, back, pause, cross, pause_state, difficulty, game_over_state
+    global R, G, B, rocket, bullets, bubbles, first_time, back, pause, cross, pause_state, difficulty, game_over_state, show_bounds
 
     # background
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
@@ -404,7 +412,8 @@ def showScreen():
 
     glColor3f(63/255, 152/255, 69/255)
     back.box = [back.x-20, 30, back.y-5, 10]
-    draw_quad(back.box[0], back.box[2], back.box[0], back.box[2]+back.box[3], back.box[0]+back.box[1], back.box[2]+back.box[3], back.box[0]+back.box[1], back.box[2])
+    if show_bounds == True:
+        draw_quad(back.box[0], back.box[2], back.box[0], back.box[2]+back.box[3], back.box[0]+back.box[1], back.box[2]+back.box[3], back.box[0]+back.box[1], back.box[2])
 
 
     # CROSS BUTTON
@@ -414,7 +423,8 @@ def showScreen():
 
     glColor3f(63/255, 152/255, 69/255)
     cross.box = [cross.x-10, 20, cross.y-10, 20]
-    draw_quad(cross.box[0], cross.box[2], cross.box[0], cross.box[2]+cross.box[3], cross.box[0]+cross.box[1], cross.box[2]+cross.box[3], cross.box[0]+cross.box[1], cross.box[2])
+    if show_bounds == True:
+        draw_quad(cross.box[0], cross.box[2], cross.box[0], cross.box[2]+cross.box[3], cross.box[0]+cross.box[1], cross.box[2]+cross.box[3], cross.box[0]+cross.box[1], cross.box[2])
 
 
     # PAUSE BUTTON
@@ -424,7 +434,8 @@ def showScreen():
 
     glColor3f(63/255, 152/255, 69/255)
     pause.box = [pause.x-10, 20, pause.y-10, 20]
-    draw_quad(pause.box[0], pause.box[2], pause.box[0], pause.box[2]+pause.box[3], pause.box[0]+pause.box[1], pause.box[2]+pause.box[3], pause.box[0]+pause.box[1], pause.box[2])
+    if show_bounds == True:
+        draw_quad(pause.box[0], pause.box[2], pause.box[0], pause.box[2]+pause.box[3], pause.box[0]+pause.box[1], pause.box[2]+pause.box[3], pause.box[0]+pause.box[1], pause.box[2])
 
 
 
@@ -445,7 +456,8 @@ def showScreen():
 
     glColor3f(63/255, 152/255, 69/255)
     rocket.box = [rocket.x-25, 50, rocket.y-50, 95]
-    draw_quad(rocket.box[0], rocket.box[2], rocket.box[0], rocket.box[2]+rocket.box[3], rocket.box[0]+rocket.box[1], rocket.box[2]+rocket.box[3], rocket.box[0]+rocket.box[1], rocket.box[2])
+    if show_bounds == True:
+        draw_quad(rocket.box[0], rocket.box[2], rocket.box[0], rocket.box[2]+rocket.box[3], rocket.box[0]+rocket.box[1], rocket.box[2]+rocket.box[3], rocket.box[0]+rocket.box[1], rocket.box[2])
 
 
     # BULLETS
@@ -483,7 +495,8 @@ def showScreen():
 
             glColor3f(63/255, 152/255, 69/255)
             bubble.box = [bubble.x-bubble.radius, 2*bubble.radius, bubble.y-bubble.radius, 2*bubble.radius]
-            draw_quad(bubble.box[0], bubble.box[2], bubble.box[0], bubble.box[2]+bubble.box[3], bubble.box[0]+bubble.box[1], bubble.box[2]+bubble.box[3], bubble.box[0]+bubble.box[1], bubble.box[2])
+            if show_bounds == True:
+                draw_quad(bubble.box[0], bubble.box[2], bubble.box[0], bubble.box[2]+bubble.box[3], bubble.box[0]+bubble.box[1], bubble.box[2]+bubble.box[3], bubble.box[0]+bubble.box[1], bubble.box[2])
 
 
     glPointSize(5) 
